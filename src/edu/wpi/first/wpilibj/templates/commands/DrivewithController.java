@@ -15,6 +15,15 @@ import edu.wpi.first.wpilibj.templates.subsystems.Drive;
      */
 public class DrivewithController extends CommandBase {
     
+    private static int TANK = 1;
+    private static int TANK_AVG = 2;
+    private static int ARCADE_SINGLE = 3;
+    private static int ARCADE_SPLIT = 4;
+    
+    private static double AVG_RANGE = 0.1;
+    
+    private int controllerMode;
+    
     public DrivewithController() {
         super("DriveWithController");
         requires(drive);
@@ -24,7 +33,7 @@ public class DrivewithController extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-   
+        controllerMode = TANK;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -33,13 +42,43 @@ public class DrivewithController extends CommandBase {
      * Part that drives it
      */
     protected void execute() {
+        double left;
+        double right;
+        double average;
+        double speed;
+        double direction;
+    
         
-       
-        // drive the robot based on driver sticks
-        double left = oi.getDriveLeftVerticalAxis();
-        double right = oi.getDriveRightVerticalAxis();
+       if (controllerMode==TANK) {
+            // drive the robot based on driver sticks
+            left = oi.getDriveLeftVerticalAxis();
+            right = oi.getDriveRightVerticalAxis();
+    
+            drive.driveTankOpenLoop(left, right);
 
-        drive.driveTankOpenLoop(left, right);
+       } else if (controllerMode == TANK_AVG) {
+            // drive the robot based on driver sticks
+            left = oi.getDriveLeftVerticalAxis();
+            right = oi.getDriveRightVerticalAxis();
+    
+            if ( Math.abs(left - right) < AVG_RANGE) {
+                average = left + right / 2.0;    
+            }
+    
+            drive.driveTankOpenLoop(average, average);
+
+       } else if (controllerMode == ARCADE_SINGLE) {
+           speed = oi.getDriveLeftVerticalAxis();
+           direction = oi.getDriveLeftHorizontalAxis();
+
+            drive.driveTankOpenLoop(?????, ?????);
+
+       } else if (controllerMode == ARCADE_SPLIT) {
+           speed = oi.getDriveLeftVerticalAxis();
+           direction = oi.getDriveRightHorizontalAxis();
+
+            drive.driveTankOpenLoop(?????, ?????);
+       }
 
     }
 
