@@ -71,43 +71,39 @@ public class DrivewithController extends CommandBase {
            speed = oi.getDriveLeftVerticalAxis();
            direction = oi.getDriveLeftHorizontalAxis();
            
-           // set left and right to speed adjusted for direction
-           left = speed;
-           right = left - 2 * direction;
-           
-           // normalize left and right so they are between 1 and -1
-           if (right > 1) {
-               left = left - right + 1;
-               right = 1;
-           } else if (right < -1) {
-               left = left + right + 1;
-               right = -1;
-           }
-
-            drive.driveTankOpenLoop(left, right);
+           arcade(speed, direction);
 
        } else if (controllerMode == ARCADE_SPLIT) {
            speed = oi.getDriveLeftVerticalAxis();
            direction = oi.getDriveRightHorizontalAxis();
-           // set left and right to speed adjusted for direction
-           left = speed;
-           right = left - 2 * direction;
            
-           // normalize left and right so they are between 1 and -1
-           if (right > 1) {
-               left = left - right + 1;
-               right = 1;
-           } else if (right < -1) {
-               left = left + right + 1;
-               right = -1;
-           }
-
-            drive.driveTankOpenLoop(left, right);
+           arcade(speed, direction);
 
        }
 
     }
+    
+    private void arcade (double speed, double direction) {
+        double left;
+        double right;
+        
+       // set left and right to speed adjusted for direction
+       left = speed;
+       right = left - 2 * direction;
+       
+       // normalize left and right so they are between 1 and -1
+       if (right > 1) {
+           left = left - right + 1;
+           right = 1;
+       } else if (right < -1) {
+           left = left + right + 1;
+           right = -1;
+       }
 
+        drive.driveTankOpenLoop(left, right);
+
+    }
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
