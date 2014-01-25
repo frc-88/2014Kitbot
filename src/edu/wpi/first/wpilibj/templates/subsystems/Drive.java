@@ -26,7 +26,7 @@ public class Drive extends Subsystem {
     private static final double DISTANCE_PER_REVOLUTION = 14.660;
     private boolean m_closedLoop;
     public Drive()  {
-
+        
         try {
                 
                 leftJag = new CANJaguar(Wiring.leftCANDrive);
@@ -202,7 +202,7 @@ public class Drive extends Subsystem {
         // convert rpm to inches per second
         return encoderToDistance(speed)/60.0;
     }
-    
+
     /**
      * Current speed of right wheel
      * 

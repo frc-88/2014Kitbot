@@ -14,5 +14,11 @@ public class Wiring {
     public static final int rightCANDrive = 3;
     public static final int rightCANDrive2 = 6;
     
+    /*
+     * ### Solenoids ###
+     */
+    //Shifters, in ports 1 and 5.
+    public static final int rShifter=1;
+    public static final int lShifter=5;
     
 }

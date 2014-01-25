@@ -2,8 +2,9 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.templates.commands.ShiftGearBox;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -16,6 +17,13 @@ public class OI {
     private static final int TRIGGER_AXIS = 3;
     private static final int RIGHT_HORIZ_AXIS = 4;
     private static final int RIGHT_VERT_AXIS = 5;
+    
+    private Button driverButtonA = new JoystickButton(joystick1, 1);
+    
+    public OI(){
+        System.out.println("OI init");
+        driverButtonA.whenPressed(new ShiftGearBox());
+    }
     
     public double getDriveRightVerticalAxis() {
         return (joystick1.getRawAxis(5));
